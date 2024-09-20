@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const { PORT } = require('./config/server.config');
 
 const app = express();
+const apiRouter = require('./routes');
+
+app.use('/api', apiRouter)
 
 app.get('/ping', (req, res) => {
     return res.json({message : 'Problem Service is alive'});
