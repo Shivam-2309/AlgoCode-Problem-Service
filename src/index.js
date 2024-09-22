@@ -3,6 +3,11 @@ const bodyParser = require('body-parser');
 const { PORT } = require('./config/server.config');
 
 const app = express();
+const apiRouter = require('./routes');
+
+// If any request comes and routes starts with /api
+// Then we map it to apiRouter
+app.use('/api', apiRouter)
 
 app.get('/ping', (req, res) => {
     return res.json({message : 'Problem Service is alive'});
