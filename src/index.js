@@ -1,45 +1,29 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const { PORT } = require('./config/server.config');
 
 const app = express();
 const apiRouter = require('./routes');
 const errorHandler = require('./utils/errorHandler.js');
+const connectToDB = require('./config/db.config.js');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
+// Express now includes body-parsing by default, so you don't need the body-parser package
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.text());
 
-// If any request comes and routes starts with /api
-// Then we map it to apiRouter
-app.use('/api', apiRouter)
+// If any request comes and routes start with /api, map it to apiRouter
+app.use('/api', apiRouter);
 
 app.get('/ping', (req, res) => {
-    return res.json({message : 'Problem Service is alive'});
+    return res.json({ message: 'Problem Service is alive' });
 });
 
-// last middleware if any error comes
+// Last middleware if any error comes
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+// Wrap connectToDB in try-catch to handle DB connection errors gracefully
+app.listen(PORT, async () => {
     console.log(`Server started at PORT : ${ PORT }`);
-    // There can be some risky piece of code which might block the runtime of the program execution
-    // such error must be wrapped in a try and catch statement
-    // here now when exceptions come, it now won't stop the program execution
-    try {
-        // Real time example
-        // 1. opened a db connection
-        // 2. Queried on db, but u wrote wrong query
-        // 3. Exception will be there
-        throw new NotFoundError({});
-    }
-    catch(error) {
-        // log the error
-        console.log("Something went wrong", error.stack);
-    }
-    finally {
-        // close the db connection because i don't want to waste resources
-        // or it can be used by the finally process
-        console.log("Executed Finally")
-    }
+    await connectToDB();
+    console.log("Successfully connected to DB");
 });
