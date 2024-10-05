@@ -8,22 +8,42 @@ function pingProblemController(req, res) {
 
 function addProblem(req, res, next) {
     try {
-        throw new BadRequest('Problem Name', {missing: ["Problem Name"]});
+        throw new NotImplemented('Add Problem');
     }catch (error) {
         next(error);
     }
 }
 
 function getProblem(req, res, next) {
+    try {
+        throw new NotImplemented('Add Problem');
+    }catch (error) {
+        next(error);
+    }
 }
 
 function getProblems(req, res) {
+    try {
+        throw new NotImplemented('Add Problem');
+    }catch (error) {
+        next(error);
+    }
 }
 
 function deleteProblem(req, res) {
+    try {
+        throw new NotImplemented('Add Problem');
+    }catch (error) {
+        next(error);
+    }
 }
 
 function updateProblem(req, res) {
+    try {
+        throw new NotImplemented('Add Problem');
+    }catch (error) {
+        next(error);
+    }
 }
 
 module.exports = {
