@@ -6,11 +6,11 @@ const problemRouter = express.Router();
 
 problemRouter.get('/ping', problemController.pingProblemController); 
 
-problemRouter.get('/id', problemController.getProblem); 
+problemRouter.get('/:id', problemController.getProblem); 
 
-problemRouter.post('/', problemController.addProblem);
+problemRouter.get('/', problemController.getProblems);
  
-problemRouter.post('/', problemController.deleteProblem);
+problemRouter.post('/', problemController.addProblem);
 
 problemRouter.delete('/:id', problemController.deleteProblem);
 
