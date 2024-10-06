@@ -5,7 +5,7 @@ const { METHOD_FAILURE } = require('http-status-codes');
 async function connectToDB() {
 
     try {
-        if(NODE_ENV == "developement"){
+        if(NODE_ENV == "development"){
             await mongoose.connect(ATLAS_DB_URL);
         }
         await mongoose.connect(ATLAS_DB_URL);
